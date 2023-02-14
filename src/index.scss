@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@300&display=swap');
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-family: 'IBM Plex Sans Thai Looped', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  // background-color: #1864ab;
-  // color: black;
+  background-color: #1864ab;
+  color: white;
 }
 
 code {
