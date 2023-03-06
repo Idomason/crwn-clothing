@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../../contexts/user-context';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
@@ -19,9 +20,12 @@ const SignInForm = () => {
 
   const { email, password } = formFields;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   // Sign in with google firebase method
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
+    setCurrentUser(user);
     await createUserDocFromAuth(user);
   };
 
@@ -35,20 +39,25 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
-
+      const { user } = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      setCurrentUser(user);
       resetFormFields();
-      alert('Logged in successfully!');
     } catch (error) {
       switch (error.code) {
         case 'auth/wrong-password':
           alert('Sorry, incorrect password');
+          resetFormFields();
           break;
         case 'auth/user-not-found':
           alert('No user associated with this email');
+          resetFormFields();
           break;
         default:
           console.log(error);
+          resetFormFields();
       }
     }
   };
